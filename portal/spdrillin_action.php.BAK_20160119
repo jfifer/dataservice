@@ -1,0 +1,171 @@
+<?php
+include('php/dbconn.php');
+
+
+try {
+      $customerId = $_GET['v_customerId'];
+
+      $conn = new mysqli($HOST,$DBUSER,$DBPWD,$DBNAME);
+      $sql1='SELECT c.companyName,
+                    r.resellerId
+               FROM reseller r
+               JOIN customer c USING (resellerId)
+              WHERE c.customerId ='.$customerId;
+
+      if ( $result=mysqli_query($conn,$sql1) ) {
+
+          $data = mysqli_fetch_array($result);
+          $resellerId = $data[1];
+          $companyName = $data[0];
+
+      }
+
+}
+catch (Exception $e) {
+       die("No CustomerId Provided");
+}
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Customer Drill In</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
+    <!-- Color Blocks -->
+    <link href="js/bowerComponents/sb-admin-2.css" rel="stylesheet">
+
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MAIN CHARTS TAG -->
+    <script src="../testStuff/AMcharts/amcharts/amcharts.js" type="text/javascript"></script>
+    <!-- CHARTS INCLUDE(s) -->
+    <script src="../testStuff/AMcharts/amcharts/pie.js" type="text/javascript"></script>
+    <script src="../testStuff/AMcharts/amcharts/serial.js" type="text/javascript"></script>
+    <script src="../testStuff/AMcharts/amcharts/funnel.js" type="text/javascript"></script>
+
+    <style type="text/css">
+
+  .logo {
+    margin-top: 10px;
+    margin-left: 20px;
+    float: left;
+  }
+
+  .container-fluid {
+    background-color: #0076a3;
+  }
+
+  .navvy {
+    color: #FFF !important;
+  }
+
+  .active {
+    background-color: #FFF !important;
+  }
+
+  .page-header {
+    font-family: 'Play', sans-serif;
+  }
+
+  body {
+    font-family: 'Play', sans-serif;
+  }
+
+  </style>
+
+<style type="text/css">
+#servicesArea {
+  width   : 100%;
+  height    : 700px;
+  font-size : 11px;
+  }
+
+ #back {
+   background-color: grey;
+   color: #FFF;
+ }
+</style>
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<div class="col-xs-12 col-sm-6 col-lg-8">
+<img class="logo" src="img/site_logo2.png" height="95px;" width="475px;">
+</div>
+<br><br><br><br><br><br><br>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"></a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a class="active" href="index.php">Home</a></li>
+        <li><a class="navvy" href="reports/reports_index.php">Reports</a></li>
+        <li><a class="navvy" href="dashboards/dashboards_index.php">Dashboards</a></li>
+        <li><a class="navvy" href="request_data.php">Request Data</a></li>
+        <?php
+          echo "<li><a id='back' href='spdrillin.php?c.resellerId=".$resellerId."'>BACK</a></li>";
+        ?>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- End Navigation -->
+
+<!-- PAGE CONTENT STARTS -->
+<div class="container">
+
+<h2><?php echo $companyName; ?> Customer Overview <small><?php echo date('l jS \of F Y h:i:s A'); ?></small></h2>
+
+
+<div clas="row">
+
+<?php echo "Customer Id: ".$customerId; ?>
+
+</div>
+<!-- Row 1 -->
+  <div class="row">
+    <div class="col-md-12 portfolio-item"><br>
+      <!-- <a href="#" data-toggle="tooltip" title="Click On Me!"> -->
+              <h3>Production Services<small> </small></h3>
+                 <?php include('php/customer_drillIn/production_services.php'); ?>
+                <!-- </a> -->
+            </div>
+
+        </div>
+    <!-- End Row 1 -->
+
+
+    <div class="row">
+        <div class="col-md-12 portfolio-item">
+            <!-- <a href="#" data-toggle="tooltip" title="Click On Me!"> -->
+            <h3>Monthly Invoice Amounts<small> </small></h3>
+
+            <?php include('php/customer_drillIn/totalRevenue_ByCustomer.php'); ?>
+            <!-- </a> -->
+        </div>
+    </div>
+
+
+
+<table>
+<tbody>
+</tbody>
+</table>
+
+</div>
+</body>
+</html>

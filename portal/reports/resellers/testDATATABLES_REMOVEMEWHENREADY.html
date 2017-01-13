@@ -1,0 +1,111 @@
+    <link rel="stylesheet" href="../../../testStuff/bootTable/sourceCode/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../testStuff/bootTable/sourceCode/assets/bootstrap-table/src/bootstrap-table.css">
+    <link rel="stylesheet" href="../../../testStuff/bootTable/sourceCode/assets/examples.css">
+
+    <script src="../../../testStuff/bootTable/sourceCode/assets/jquery.min.js"></script>
+    <script src="../../../testStuff/bootTable/sourceCode/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../../testStuff/bootTable/sourceCode/assets/bootstrap-table/src/bootstrap-table.js"></script>
+    <script src="../../../testStuff/bootTable/sourceCode/assets/bootstrap-table/src/extensions/export/bootstrap-table-export.js"></script>
+    <script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
+    <script src="../../../testStuff/bootTable/sourceCode/ga.js"></script>
+
+
+
+
+
+
+    <div class="container">
+        <h1>Export</h1>
+        <div id="toolbar">
+            <select class="form-control">
+                <option value="">Export Basic</option>
+                <option value="all">Export All</option>
+                <option value="selected">Export Selected</option>
+            </select>
+        </div>
+        <table id="table"
+               data-toggle="table"
+               data-show-export="true"
+               data-pagination="true"
+               data-click-to-select="true"
+               data-toolbar="#toolbar"
+               data-url="../json/data1.json">
+            <thead>
+            <tr>
+                <th data-field="state" data-checkbox="true"></th>
+                <th data-field="id">ID</th>
+                <th data-field="name">Item Name</th>
+                <th data-field="price">Item Price</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+<script>
+    var $table = $('#table');
+    $(function () {
+        $('#toolbar').find('select').change(function () {
+            $table.bootstrapTable('refreshOptions', {
+                exportDataType: $(this).val()
+            });
+        });
+    })
+</script>
+
+
+
+
+
+
+
+
+
+
+ <div class="container">
+        <h1>Export</h1>
+        <div id="toolbar">
+            <select class="form-control">
+                <option value="">Export Basic</option>
+                <option value="all">Export All</option>
+                <option value="selected">Export Selected</option>
+            </select>
+        </div>
+        <table id="table"
+               data-toggle="table"
+               data-show-export="true"
+               data-pagination="true"
+               data-click-to-select="true"
+               data-toolbar="#toolbar"
+
+            <thead>
+            <tr>
+                <th data-field="spid" >SP ID</th>
+                <th data-field="spname">SP Name</th>
+                <th data-field="phone">Phone</th>
+                <th data-field="address">Address</th>
+                <th data-field="ext">Extensions</th>
+                <th data-field="customers">Customers</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr>
+               <td>test</td>
+               <td>test</td>
+               <td>test</td>
+               <td>test</td>
+               <td>test</td>
+               <td>test</td>
+              </tr>
+
+            </tbody>
+        </table>
+    </div>
+<script>
+    var $table = $('#table');
+    $(function () {
+        $('#toolbar').find('select').change(function () {
+            $table.bootstrapTable('refreshOptions', {
+                exportDataType: $(this).val()
+            });
+        });
+    })
+</script>
